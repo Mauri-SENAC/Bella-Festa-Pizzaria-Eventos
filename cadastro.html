@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre ou cadastre-se na Bella Festa Pizzaria & Eventos.">
+    <title>Entrar ou Cadastrar | Bella Festa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="auth-page">
+
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">🍕</span>
+            <span>BELLA <strong>FESTA</strong>
+                <small>PIZZARIA & EVENTOS</small>
+            </span>
+        </a>
+
+        <a href="index.html" class="btn btn-outline">
+            <span>←</span> Voltar ao início
+        </a>
+    </header>
+
+    <main class="auth-main">
+
+        <!-- LADO VISUAL -->
+        <section class="auth-showcase">
+            <div class="auth-showcase-overlay"></div>
+
+            <div class="auth-showcase-content">
+                <span class="eyebrow">BENVENUTO ALLA BELLA FESTA</span>
+
+                <h1>Os melhores momentos<br>
+                    começam <span>à mesa.</span>
+                </h1>
+
+                <p>
+                    Entre para descobrir sabores especiais,
+                    acompanhar seus pedidos e planejar
+                    comemorações inesquecíveis.
+                </p>
+
+                <div class="auth-quote">
+                    <span class="quote-mark">“</span>
+                    <p>Boa comida aproxima pessoas. Boas memórias ficam para sempre.</p>
+                    <span class="quote-author">— BELLA FESTA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIOS -->
+        <section class="auth-panel">
+            <div class="auth-card">
+
+                <a href="index.html" class="auth-mobile-logo">
+                    🍕 BELLA <strong>FESTA</strong>
+                </a>
+
+                <div class="auth-heading">
+                    <span class="eyebrow">SUA EXPERIÊNCIA COMEÇA AQUI</span>
+                    <h2 id="authTitle">Bem-vindo de volta!</h2>
+                    <p id="authDescription">
+                        Entre com seus dados para continuar.
+                    </p>
+                </div>
+
+                <!-- ABAS -->
+                <div class="auth-tabs" role="tablist" aria-label="Acesso à conta">
+                    <button
+                        type="button"
+                        class="auth-tab active"
+                        id="loginTab"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="loginForm">
+                        Entrar
+                    </button>
+
+                    <button
+                        type="button"
+                        class="auth-tab"
+                        id="registerTab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="registerForm">
+                        Criar conta
+                    </button>
+                </div>
+
+                <!-- LOGIN -->
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="voce@exemplo.com"
+                            autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label for="loginPassword">Senha</label>
+                            <button type="button" class="forgot-link" id="forgotPassword">
+                                Esqueci minha senha
+                            </button>
+                        </div>
+
+                        <div class="password-wrap">
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                minlength="4"
+                                required>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password="loginPassword"
+                                aria-label="Mostrar senha">
+                                ◉
+                            </button>
+                        </div>
+                    </div>
+
+                    <label class="remember-row">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Manter meus dados nesta sessão</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary auth-submit">
+                        Entrar na minha conta <span>→</span>
+                    </button>
+
+                    <p class="auth-switch">
+                        Ainda não tem conta?
+                        <button type="button" data-show-form="register">
+                            Cadastre-se
+                        </button>
+                    </p>
+                </form>
+
+                <!-- CADASTRO -->
+                <form id="registerForm" class="auth-form" hidden>
+                    <div class="form-group">
+                        <label for="registerName">Nome completo</label>
+                        <input
+                            type="text"
+                            id="registerName"
+                            name="name"
+                            placeholder="Como podemos te chamar?"
+                            autocomplete="name"
+                            minlength="3"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">E-mail</label>
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            name="email"
+                            placeholder="voce@exemplo.com"
+                            autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPhone">Telefone</label>
+                        <input
+                            type="tel"
+                            id="registerPhone"
+                            name="phone"
+                            placeholder="(00) 00000-0000"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Criar senha</label>
+                        <div class="password-wrap">
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                name="password"
+                                placeholder="Mínimo de 6 caracteres"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required>
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-password="registerPassword"
+                                aria-label="Mostrar senha">
+                                ◉
+                            </button>
+                        </div>
+                    </div>
+
+                    <label class="remember-row terms-row">
+                        <input type="checkbox" id="acceptTerms" required>
+                        <span>Concordo com os termos de uso demonstrativos.</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary auth-submit">
+                        Criar minha conta <span>→</span>
+                    </button>
+
+                    <p class="auth-switch">
+                        Já tem uma conta?
+                        <button type="button" data-show-form="login">
+                            Fazer login
+                        </button>
+                    </p>
+                </form>
+
+                <div class="auth-message" id="authMessage" role="status" aria-live="polite" hidden></div>
+
+                <div class="auth-divider">
+                    <span>UMA EXPERIÊNCIA BELLA FESTA</span>
+                </div>
+
+                <p class="auth-privacy">
+                    🔒 Demonstração visual. Não utilize senhas reais.
+                    Nenhuma conta é criada em um servidor.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer auth-footer">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">🍕</span>
+            <span>BELLA <strong>FESTA</strong>
+                <small>PIZZARIA & EVENTOS</small>
+            </span>
+        </a>
+
+        <span class="copyright">
+            © <span id="currentYear"></span> Bella Festa. Projeto demonstrativo.
+        </span>
+    </footer>
+
+</body>
+</html>

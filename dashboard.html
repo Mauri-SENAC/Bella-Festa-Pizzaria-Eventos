@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Painel de controle da Bella Festa Pizzaria & Eventos.">
+
+    <title>Painel | Bella Festa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar" id="sidebar">
+
+        <a href="index.html" class="logo dashboard-logo">
+            <span class="logo-icon">🍕</span>
+            <span>
+                BELLA <strong>FESTA</strong>
+                <small>PAINEL DE CONTROLE</small>
+            </span>
+        </a>
+
+        <div class="sidebar-label">MENU PRINCIPAL</div>
+
+        <nav class="sidebar-nav">
+            <a href="#inicio" class="sidebar-link active">
+                <span>▦</span> Visão geral
+            </a>
+
+            <a href="#pedidos" class="sidebar-link">
+                <span>▤</span> Pedidos
+                <span class="sidebar-count">3</span>
+            </a>
+
+            <a href="cardapio.html" class="sidebar-link">
+                <span>♨</span> Cardápio
+            </a>
+
+            <a href="eventos.html" class="sidebar-link">
+                <span>✦</span> Eventos
+            </a>
+
+            <a href="#clientes" class="sidebar-link">
+                <span>♧</span> Clientes
+            </a>
+        </nav>
+
+        <div class="sidebar-label">PREFERÊNCIAS</div>
+
+        <nav class="sidebar-nav">
+            <a href="#configuracoes" class="sidebar-link">
+                <span>⚙</span> Configurações
+            </a>
+
+            <button type="button" class="sidebar-link sidebar-action"
+                    id="notificationButton">
+                <span>♧</span> Notificações
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                Modo demonstração
+            </div>
+
+            <a href="index.html" class="sidebar-logout">
+                <span>↩</span> Voltar ao site
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="dashboard-main" id="inicio">
+
+        <!-- CABEÇALHO DO PAINEL -->
+        <header class="dashboard-header">
+
+            <div class="dashboard-header-left">
+                <button type="button"
+                        class="menu-toggle dashboard-menu-toggle"
+                        id="sidebarToggle"
+                        aria-label="Abrir menu"
+                        aria-expanded="false">
+                    ☰
+                </button>
+
+                <div>
+                    <span class="dashboard-kicker">PAINEL DE CONTROLE</span>
+                    <h1>Visão geral<span>.</span></h1>
+                    <p id="dashboardDate">Carregando data...</p>
+                </div>
+            </div>
+
+            <div class="dashboard-header-right">
+                <button type="button"
+                        class="notification-button"
+                        id="notificationButtonTop"
+                        aria-label="Ver notificações">
+                    ♧
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="dashboard-user">
+                    <div class="user-avatar">BF</div>
+                    <div>
+                        <strong>Administrador</strong>
+                        <span>Minha conta</span>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- MENSAGEM DE NOTIFICAÇÃO -->
+        <div class="dashboard-toast"
+             id="dashboardToast"
+             role="status"
+             aria-live="polite"
+             hidden>
+        </div>
+
+        <!-- BOAS-VINDAS -->
+        <section class="dashboard-welcome">
+            <div>
+                <span class="eyebrow">BENVENUTO ALLA BELLA FESTA</span>
+                <h2>Bom ter você por aqui!</h2>
+                <p>
+                    Acompanhe os números da sua pizzaria
+                    e mantenha tudo organizado em um só lugar.
+                </p>
+            </div>
+
+            <a href="cardapio.html" class="btn btn-primary">
+                Ver cardápio <span>→</span>
+            </a>
+        </section>
+
+        <!-- INDICADORES -->
+        <section class="dashboard-stats" aria-label="Indicadores">
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Pedidos de hoje</span>
+                    <span class="stat-icon red">▤</span>
+                </div>
+                <strong>24</strong>
+                <p><span class="stat-positive">+12%</span> em relação a ontem</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Faturamento do dia</span>
+                    <span class="stat-icon gold">R$</span>
+                </div>
+                <strong>R$ 1.248,90</strong>
+                <p>Valores ilustrativos</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Clientes cadastrados</span>
+                    <span class="stat-icon green">♧</span>
+                </div>
+                <strong>186</strong>
+                <p>Base demonstrativa</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Eventos agendados</span>
+                    <span class="stat-icon purple">✦</span>
+                </div>
+                <strong>08</strong>
+                <p>Agendamentos ilustrativos</p>
+            </article>
+
+        </section>
+
+        <!-- PEDIDOS E MAIS VENDIDAS -->
+        <section class="dashboard-content-grid">
+
+            <article class="dashboard-panel orders-panel" id="pedidos">
+
+                <div class="panel-heading">
+                    <div>
+                        <span class="eyebrow">ACOMPANHAMENTO</span>
+                        <h2>Pedidos recentes</h2>
+                    </div>
+
+                    <span class="demo-badge">Demonstração</span>
+                </div>
+
+                <div class="orders-table-wrap">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>#BF-1024</td>
+                                <td>Mariana Costa</td>
+                                <td>R$ 89,90</td>
+                                <td><span class="order-status preparing">Preparando</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#BF-1023</td>
+                                <td>Lucas Martins</td>
+                                <td>R$ 64,90</td>
+                                <td><span class="order-status delivered">Entregue</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#BF-1022</td>
+                                <td>Camila Souza</td>
+                                <td>R$ 109,80</td>
+                                <td><span class="order-status pending">Pendente</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>#BF-1021</td>
+                                <td>Pedro Almeida</td>
+                                <td>R$ 49,90</td>
+                                <td><span class="order-status delivered">Entregue</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="panel-note">
+                    Os pedidos apresentados são fictícios e não representam vendas reais.
+                </p>
+
+            </article>
+
+            <!-- MAIS VENDIDAS -->
+            <article class="dashboard-panel favorites-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <span class="eyebrow">PREFERIDAS DOS CLIENTES</span>
+                        <h2>Mais populares</h2>
+                    </div>
+                </div>
+
+                <div class="favorite-item">
+                    <img
+                        src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=160&q=80"
+                        alt="Pizza de calabresa"
+                        loading="lazy">
+
+                    <div class="favorite-info">
+                        <strong>Calabresa Especial</strong>
+                        <span>32 pedidos demonstrativos</span>
+                    </div>
+
+                    <strong class="favorite-price">R$ 44,90</strong>
+                </div>
+
+                <div class="favorite-item">
+                    <img
+                        src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=160&q=80"
+                        alt="Pizza Margherita"
+                        loading="lazy">
+
+                    <div class="favorite-info">
+                        <strong>Margherita</strong>
+                        <span>28 pedidos demonstrativos</span>
+                    </div>
+
+                    <strong class="favorite-price">R$ 39,90</strong>
+                </div>
+
+                <div class="favorite-item">
+                    <img
+                        src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=160&q=80"
+                        alt="Pizza quatro queijos"
+                        loading="lazy">
+
+                    <div class="favorite-info">
+                        <strong>Quatro Queijos</strong>
+                        <span>21 pedidos demonstrativos</span>
+                    </div>
+
+                    <strong class="favorite-price">R$ 49,90</strong>
+                </div>
+
+                <a href="cardapio.html" class="text-link favorite-link">
+                    Explorar cardápio completo <span>→</span>
+                </a>
+
+            </article>
+
+        </section>
+
+        <!-- EVENTOS E ATALHOS -->
+        <section class="dashboard-bottom-grid">
+
+            <article class="dashboard-panel event-summary" id="clientes">
+                <div class="panel-heading">
+                    <div>
+                        <span class="eyebrow">CELEBRAÇÕES</span>
+                        <h2>Área de eventos</h2>
+                    </div>
+                    <span class="stat-icon gold">✦</span>
+                </div>
+
+                <p>
+                    Organize aniversários, confraternizações e
+                    encontros especiais com a Bella Festa.
+                </p>
+
+                <div class="event-summary-number">
+                    <strong>08</strong>
+                    <span>eventos ilustrativos no painel</span>
+                </div>
+
+                <a href="eventos.html" class="btn btn-outline">
+                    Gerenciar eventos <span>→</span>
+                </a>
+            </article>
+
+            <article class="dashboard-panel quick-actions" id="configuracoes">
+                <div class="panel-heading">
+                    <div>
+                        <span class="eyebrow">ACESSO RÁPIDO</span>
+                        <h2>Atalhos</h2>
+                    </div>
+                </div>
+
+                <a href="cardapio.html" class="quick-action">
+                    <span class="quick-action-icon">♨</span>
+                    <span>
+                        <strong>Cardápio</strong>
+                        <small>Consultar sabores e preços</small>
+                    </span>
+                    <span class="quick-arrow">↗</span>
+                </a>
+
+                <a href="eventos.html" class="quick-action">
+                    <span class="quick-action-icon">✦</span>
+                    <span>
+                        <strong>Eventos</strong>
+                        <small>Conhecer opções de celebração</small>
+                    </span>
+                    <span class="quick-arrow">↗</span>
+                </a>
+
+                <a href="index.html#contato" class="quick-action">
+                    <span class="quick-action-icon">✉</span>
+                    <span>
+                        <strong>Contato</strong>
+                        <small>Ir para a página principal</small>
+                    </span>
+                    <span class="quick-arrow">↗</span>
+                </a>
+            </article>
+
+        </section>
+
+        <!-- RODAPÉ -->
+        <footer class="dashboard-footer">
+            <span>🍕 Bella Festa — Pizzaria & Eventos</span>
+            <span>Projeto demonstrativo · <span id="dashboardYear"></span></span>
+        </footer>
+
+    </main>
+
+</body>
+</html>

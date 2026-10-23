@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Celebre momentos especiais com a Bella Festa. Conheça nossas opções para aniversários, confraternizações e eventos.">
+  <title>Eventos | Bella Festa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <style>
+    .events-hero{display:flex !important;position:relative;isolation:isolate;min-height:470px;align-items:center;padding:90px max(7%,calc((100% - 1200px)/2));color:#fff;background:linear-gradient(90deg,rgba(28,20,17,.91),rgba(28,20,17,.55)),url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1800&q=85') center/cover}
+    .events-hero-content{max-width:690px}.events-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);line-height:1.05;margin:18px 0}.events-hero h1 span{color:#f0b35a}.events-hero p{max-width:580px;line-height:1.8;color:#f5eee8}.events-hero .eyebrow{color:#f0b35a}
+    .event-types{display:block;position:relative;padding:76px 7% 70px;background:#fffaf4;overflow:visible}.events-intro{text-align:center;max-width:700px;margin:0 auto 36px;padding:8px 0 0;position:relative}.events-intro h2,.booking-copy h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.2;margin:10px 0;color:#302720}.events-intro h2 span,.booking-copy h2 span{color:#c94b32}.events-intro p,.event-type p{color:#6e625a;line-height:1.7}
+    .event-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1200px;margin:auto}.event-type{background:#fff;border:1px solid #eee3d8;border-radius:18px;overflow:hidden;box-shadow:0 10px 28px rgba(54,35,20,.06)}.event-type img{display:block;width:100%;height:210px;object-fit:cover;background:#f0e4d8}.event-type-content{padding:24px}.event-type .type-icon{font-size:1.7rem}.event-type h3{font-family:'Playfair Display',serif;font-size:1.45rem;line-height:1.3;margin:12px 0 8px;color:#302720}.event-type p{margin:0}
+    .event-perks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1100px;margin:0 auto;padding:58px 7%}.perk{display:flex;gap:14px;align-items:flex-start}.perk-icon{display:grid;place-items:center;flex:0 0 48px;height:48px;border-radius:14px;background:#fff0df;font-size:1.4rem}.perk h3{margin:2px 0 6px}.perk p{margin:0;color:#74675e;line-height:1.6;font-size:.95rem}
+    .booking-section{padding:76px 7%;background:#f7eee5}.booking-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;max-width:1100px;margin:auto;align-items:start}.booking-copy p{color:#6e625a;line-height:1.8}.booking-note{padding:18px;border-left:3px solid #c94b32;background:#fff8f1;margin-top:26px;color:#6e625a;line-height:1.6}.booking-form{background:#fff;padding:30px;border-radius:18px;box-shadow:0 12px 35px rgba(54,35,20,.08)}.booking-form h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin:0 0 8px}.booking-form>p{color:#766a61;margin:0 0 22px;line-height:1.5}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.booking-form label{display:block;font-weight:600;font-size:.9rem;margin-bottom:7px}.booking-form input,.booking-form select,.booking-form textarea{width:100%;padding:12px 13px;border:1px solid #dfd3c8;border-radius:9px;background:#fff;font:inherit;color:#302720}.booking-form textarea{min-height:100px;resize:vertical}.booking-form input:focus,.booking-form select:focus,.booking-form textarea:focus{outline:2px solid #e6b26d;outline-offset:1px}.field-full{grid-column:1/-1}.booking-form .btn{border:0;cursor:pointer;font:inherit;margin-top:18px}.form-feedback{display:none;margin-top:16px;padding:13px;border-radius:9px;background:#e9f7e9;color:#245c2a;line-height:1.5}.form-feedback.visible{display:block}
+    .events-intro .eyebrow{display:inline-block;color:#a75a2b;font-weight:700;letter-spacing:.12em;font-size:.78rem}.event-type-content{color:#302720}.event-type{min-width:0}.event-type img{color:#74675e}\n    @media(max-width:800px){.event-type-grid{grid-template-columns:1fr 1fr}.booking-layout{grid-template-columns:1fr;gap:30px}.event-perks{grid-template-columns:1fr;max-width:600px}.events-hero{min-height:420px}}
+    @media(max-width:560px){.event-type-grid{grid-template-columns:1fr}.event-types,.booking-section{padding:55px 5%}.booking-form{padding:22px}.form-grid{grid-template-columns:1fr}.field-full{grid-column:auto}.events-hero{padding:70px 6%}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo"><span class="logo-icon">🍕</span><span>BELLA <strong>FESTA</strong><small>PIZZARIA & EVENTOS</small></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Início</a><a href="cardapio.html">Cardápio</a><a href="eventos.html" class="active">Eventos</a><a href="index.html#sobre">Sobre nós</a><a href="index.html#contato">Contato</a>
+    </nav>
+    <a href="cadastro.html" class="btn btn-outline header-btn">Entrar <span>↗</span></a>
+  </header>
+  <main>
+    <section class="events-hero">
+      <div class="events-hero-content">
+        <span class="eyebrow">CELEBRE COM A BELLA FESTA</span>
+        <h1>Seu momento especial merece <span>uma fatia de alegria.</span></h1>
+        <p>Do aniversário à confraternização da equipe: ajudamos você a reunir as pessoas queridas em volta de boas pizzas e memórias deliciosas.</p>
+        <div class="hero-buttons"><a href="#solicitar" class="btn btn-primary">Planejar meu evento <span>→</span></a><a href="cardapio.html" class="btn btn-light">Ver cardápio <span>↗</span></a></div>
+      </div>
+    </section>
+    <section class="event-types">
+      <div class="events-intro"><span class="eyebrow">BONS MOMENTOS, ÓTIMOS SABORES</span><h2>Que tipo de evento vamos <span>celebrar?</span></h2><p>Conte com a Bella Festa para deixar sua comemoração mais gostosa. Escolha uma ocasião para começar a planejar.</p></div>
+      <div class="event-type-grid">
+        <article class="event-type"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85" alt="Decoração colorida de festa de aniversário" loading="lazy"><div class="event-type-content"><span class="type-icon">🎂</span><h3>Aniversários</h3><p>Reúna amigos e família para comemorar com pizzas quentinhas e uma mesa cheia de alegria.</p></div></article>
+        <article class="event-type"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85" alt="Mesa preparada para uma celebração" loading="lazy"><div class="event-type-content"><span class="type-icon">🥂</span><h3>Confraternizações</h3><p>Uma opção descontraída para equipes, encontros entre amigos e comemorações de fim de ano.</p></div></article>
+        <article class="event-type"><img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=85" alt="Grupo de amigos reunidos e sorrindo" loading="lazy"><div class="event-type-content"><span class="type-icon">🎉</span><h3>Encontros especiais</h3><p>De uma reunião informal a uma ocasião marcante, montamos uma experiência para compartilhar.</p></div></article>
+      </div>
+    </section>
+    <section class="event-perks" aria-label="Diferenciais da Bella Festa">
+      <article class="perk"><span class="perk-icon">🍕</span><div><h3>Pizzas para compartilhar</h3><p>Opções variadas para agradar diferentes gostos e deixar todos à vontade.</p></div></article>
+      <article class="perk"><span class="perk-icon">✨</span><div><h3>Planejamento simples</h3><p>Conte pra gente sua ideia e os detalhes principais da comemoração.</p></div></article>
+      <article class="perk"><span class="perk-icon">❤️</span><div><h3>Feito com carinho</h3><p>Atenção aos detalhes para que você aproveite o momento com seus convidados.</p></div></article>
+    </section>
+    <section class="booking-section" id="solicitar">
+      <div class="booking-layout">
+        <div class="booking-copy"><span class="eyebrow">VAMOS COMEÇAR?</span><h2>Conte sua ideia. A gente ajuda com o <span>resto.</span></h2><p>Preencha os dados ao lado para organizar sua solicitação. Com essas informações, fica mais fácil conversar sobre a melhor opção para seu evento.</p><div class="booking-note"><strong>Importante:</strong> este formulário é demonstrativo e não envia seus dados para a pizzaria. Após integrar um canal de contato, ele poderá encaminhar as solicitações de verdade.</div></div>
+        <form class="booking-form" id="eventForm">
+          <h3>Planeje seu evento</h3><p>Preencha os campos e confira o resumo da sua solicitação.</p>
+          <div class="form-grid">
+            <div><label for="eventName">Seu nome *</label><input id="eventName" name="name" autocomplete="name" required placeholder="Como podemos chamar você?"></div>
+            <div><label for="eventEmail">E-mail *</label><input id="eventEmail" name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></div>
+            <div><label for="eventType">Tipo de evento *</label><select id="eventType" name="type" required><option value="">Selecione</option><option>Aniversário</option><option>Confraternização</option><option>Encontro especial</option><option>Outro</option></select></div>
+            <div><label for="eventDate">Data desejada *</label><input id="eventDate" name="date" type="date" required></div>
+            <div><label for="eventGuests">Número de convidados *</label><select id="eventGuests" name="guests" required><option value="">Selecione</option><option>Até 10 pessoas</option><option>11 a 20 pessoas</option><option>21 a 40 pessoas</option><option>41 a 60 pessoas</option><option>Mais de 60 pessoas</option></select></div>
+            <div><label for="eventPhone">Telefone</label><input id="eventPhone" name="phone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
+            <div class="field-full"><label for="eventDetails">Conte um pouco mais</label><textarea id="eventDetails" name="details" placeholder="Horário, preferências, dúvidas ou outros detalhes..."></textarea></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Preparar resumo <span>→</span></button>
+          <div class="form-feedback" id="formFeedback" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+    <section class="cta-section"><span class="eyebrow">SUA PRÓXIMA COMEMORAÇÃO COMEÇA AQUI</span><h2>Vamos transformar seu evento em uma <span>boa lembrança?</span></h2><p>Explore nossos sabores e imagine as possibilidades para sua celebração.</p><div class="hero-buttons"><a href="cardapio.html" class="btn btn-primary">Conhecer o cardápio <span>→</span></a><a href="index.html" class="btn btn-outline">Voltar ao início <span>↗</span></a></div></section>
+  </main>
+  <footer class="footer">
+    <a href="index.html" class="logo"><span class="logo-icon">🍕</span><span>BELLA <strong>FESTA</strong><small>PIZZARIA & EVENTOS</small></span></a>
+    <p>Feito para compartilhar bons momentos.</p><span class="copyright">© <span id="currentYear"></span> Bella Festa. Projeto demonstrativo.</span>
+  </footer>
+  <script>
+    (() => {
+      const form = document.getElementById('eventForm');
+      const feedback = document.getElementById('formFeedback');
+      const dateInput = document.getElementById('eventDate');
+      const today = new Date();
+      dateInput.min = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0,10);
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        const date = new Date(data.get('date') + 'T12:00:00').toLocaleDateString('pt-BR');
+        feedback.textContent = `Resumo preparado para ${data.get('name')}: ${data.get('type')} em ${date}, para ${data.get('guests').toLowerCase()}. Este é apenas um protótipo; nenhum dado foi enviado.`;
+        feedback.classList.add('visible');
+      });
+    })();
+  </script>
+</body>
+</html>

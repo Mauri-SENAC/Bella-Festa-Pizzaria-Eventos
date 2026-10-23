@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça o cardápio artesanal da Bella Festa.">
+    <title>Cardápio | Bella Festa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <style>
+        .menu-page {
+            min-height: 100vh;
+        }
+
+        .menu-hero {
+            padding: 85px 8% 75px;
+            background: linear-gradient(90deg, rgba(17, 17, 15, .97), rgba(17, 17, 15, .75)),
+                url("https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1800&q=85") center/cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-hero h1 {
+            font: 600 clamp(42px, 6vw, 68px)/1.1 var(--font-title);
+            max-width: 700px;
+        }
+
+        .menu-hero h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .menu-hero p {
+            max-width: 540px;
+            margin-top: 20px;
+            color: #ccc7bd;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .menu-toolbar {
+            padding: 35px 8% 10px;
+        }
+
+        .menu-search {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            height: 48px;
+            padding: 0 16px;
+            color: var(--text);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        .menu-search:focus {
+            outline: 1px solid var(--gold);
+        }
+
+        .menu-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .menu-filter {
+            padding: 10px 17px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font: 600 12px var(--font-body);
+        }
+
+        .menu-filter.active,
+        .menu-filter:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        .menu-catalog {
+            padding-top: 35px;
+        }
+
+        .menu-catalog .section-heading {
+            margin-bottom: 30px;
+        }
+
+        .menu-product {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-product .pizza-image {
+            height: 220px;
+        }
+
+        .menu-product .pizza-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-product .pizza-info>p {
+            min-height: 45px;
+        }
+
+        .menu-product .pizza-footer {
+            margin-top: auto;
+        }
+
+        .add-cart {
+            border: 0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--red);
+            color: white;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        .add-cart:hover {
+            background: var(--red-light);
+        }
+
+        .menu-empty {
+            padding: 45px 10px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .cart-bar {
+            position: fixed;
+            z-index: 120;
+            bottom: 20px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 18px;
+            background: #25231e;
+            border: 1px solid rgba(215, 173, 104, .45);
+            border-radius: 10px;
+            box-shadow: 0 12px 40px #0008;
+        }
+
+        .cart-bar span {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .cart-bar strong {
+            color: var(--gold);
+            font-size: 15px;
+        }
+
+        .cart-bar button {
+            border: 0;
+            border-radius: 5px;
+            padding: 11px 14px;
+            background: var(--red);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .menu-disclaimer {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 22px;
+        }
+
+        @media(max-width:760px) {
+            .menu-hero {
+                padding: 65px 6%;
+            }
+
+            .menu-toolbar {
+                padding: 28px 6% 5px;
+            }
+
+            .menu-catalog {
+                padding-top: 25px;
+            }
+
+            .menu-product .pizza-image {
+                height: 250px;
+            }
+
+            .cart-bar {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body class="menu-page">
+
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">🍕</span>
+            <span>BELLA <strong>FESTA</strong><small>PIZZARIA & EVENTOS</small></span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html">Início</a>
+            <a href="cardapio.html" class="active">Cardápio</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="index.html#sobre">Sobre nós</a>
+            <a href="index.html#contato">Contato</a>
+        </nav>
+
+        <a href="cadastro.html" class="btn btn-outline header-btn">Entrar <span>↗</span></a>
+    </header>
+
+    <main>
+        <section class="menu-hero">
+            <span class="eyebrow">DA NOSSA COZINHA PARA SUA MESA</span>
+            <h1>Sabores que despertam <span>momentos.</span></h1>
+            <p>
+                Ingredientes selecionados, receitas artesanais e combinações
+                feitas para transformar qualquer ocasião em algo especial.
+            </p>
+        </section>
+
+        <section class="menu-toolbar" aria-label="Buscar e filtrar pizzas">
+            <label for="pizzaSearch" class="eyebrow">ENCONTRE SEU SABOR FAVORITO</label>
+            <input class="menu-search" id="pizzaSearch" type="search" placeholder="Buscar pizza..." autocomplete="off">
+
+            <div class="menu-filters">
+                <button class="menu-filter active" data-category="todas" aria-pressed="true">Todas</button>
+                <button class="menu-filter" data-category="classicas" aria-pressed="false">Clássicas</button>
+                <button class="menu-filter" data-category="especiais" aria-pressed="false">Especiais</button>
+                <button class="menu-filter" data-category="vegetarianas" aria-pressed="false">Vegetarianas</button>
+                <button class="menu-filter" data-category="doces" aria-pressed="false">Doces</button>
+            </div>
+        </section>
+
+        <section class="section menu-catalog">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FEITAS PARA ENCANTAR</span>
+                    <h2>Nosso cardápio<span>.</span></h2>
+                    <p>Escolha sua favorita e monte seu pedido demonstrativo.</p>
+                </div>
+            </div>
+
+            <div class="pizza-grid" id="pizzaGrid">
+
+                <article class="pizza-card menu-product" data-category="classicas" data-name="margherita">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">CLÁSSICA</span>
+                        <img src="imagens/margherita.jpg"
+                            alt="Pizza Margherita" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Margherita</h3><span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Molho de tomate, muçarela fresca e manjericão.</p>
+                        <div class="pizza-footer"><strong>R$ 39,90</strong><button class="add-cart"
+                                data-name="Margherita" data-price="39.90" aria-label="Adicionar Margherita">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="pizza-card menu-product" data-category="classicas" data-name="calabresa especial">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">MAIS PEDIDA</span>
+                        <img src="imagens/pepperoni.jpg"
+                            alt="Pizza de calabresa" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Calabresa Especial</h3><span class="rating">★ 5.0</span>
+                        </div>
+                        <p>Calabresa selecionada, cebola e muçarela.</p>
+                        <div class="pizza-footer"><strong>R$ 44,90</strong><button class="add-cart"
+                                data-name="Calabresa Especial" data-price="44.90"
+                                aria-label="Adicionar Calabresa Especial">+</button></div>
+                    </div>
+                </article>
+
+                <article class="pizza-card menu-product" data-category="especiais" data-name="quatro queijos">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">PREMIUM</span>
+                        <img src="imagens/carne-seca.jpg"
+                            alt="Pizza especial de queijos" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Quatro Queijos</h3><span class="rating">★ 4.8</span>
+                        </div>
+                        <p>Muçarela, parmesão, provolone e gorgonzola.</p>
+                        <div class="pizza-footer"><strong>R$ 49,90</strong><button class="add-cart"
+                                data-name="Quatro Queijos" data-price="49.90"
+                                aria-label="Adicionar Quatro Queijos">+</button></div>
+                    </div>
+                </article>
+
+                <article class="pizza-card menu-product" data-category="especiais" data-name="frango com catupiry">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">ESPECIAL</span>
+                        <img src="imagens/milho-bacon.jpg"
+                            alt="Pizza de frango com queijo cremoso" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Frango com Catupiry</h3><span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Frango temperado, queijo cremoso e orégano.</p>
+                        <div class="pizza-footer"><strong>R$ 47,90</strong><button class="add-cart"
+                                data-name="Frango com Catupiry" data-price="47.90"
+                                aria-label="Adicionar Frango com Catupiry">+</button></div>
+                    </div>
+                </article>
+
+                <article class="pizza-card menu-product" data-category="vegetarianas" data-name="vegetariana">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">VEGETARIANA</span>
+                        <img src="imagens/brocolis-alho.jpg"
+                            alt="Pizza vegetariana com vegetais" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Da Horta</h3><span class="rating">★ 4.7</span>
+                        </div>
+                        <p>Tomate, champignon, pimentão, cebola e azeitonas.</p>
+                        <div class="pizza-footer"><strong>R$ 43,90</strong><button class="add-cart" data-name="Da Horta"
+                                data-price="43.90" aria-label="Adicionar Da Horta">+</button></div>
+                    </div>
+                </article>
+
+                <article class="pizza-card menu-product" data-category="doces" data-name="chocolate com morango">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">DOCE</span>
+                        <img src="imagens/chocolate-morango.jpg"
+                            alt="Pizza doce artesanal" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Chocolate com Morango</h3><span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Chocolate cremoso e morangos frescos.</p>
+                        <div class="pizza-footer"><strong>R$ 42,90</strong><button class="add-cart"
+                                data-name="Chocolate com Morango" data-price="42.90"
+                                aria-label="Adicionar Chocolate com Morango">+</button></div>
+                    </div>
+                </article>
+
+
+                <!-- Pizza Portuguesa -->
+                <article class="pizza-card menu-product" data-category="classicas" data-name="portuguesa">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">CLÁSSICA</span>
+                        <img src="imagens/portuguesa.jpg"
+                            alt="Pizza Portuguesa" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Portuguesa</h3>
+                            <span class="rating">★ 4.8</span>
+                        </div>
+                        <p>Presunto, muçarela, ovo, cebola, ervilha e azeitonas.</p>
+                        <div class="pizza-footer">
+                            <strong>R$ 46,90</strong>
+                            <button class="add-cart" data-name="Portuguesa" data-price="46.90"
+                                aria-label="Adicionar Portuguesa">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pizza Pepperoni -->
+                <article class="pizza-card menu-product" data-category="classicas" data-name="pepperoni">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">CLÁSSICA</span>
+                        <img src="imagens/pepperoni.jpg"
+                            alt="Pizza Pepperoni" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Pepperoni</h3>
+                            <span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Molho de tomate, muçarela e pepperoni temperado.</p>
+                        <div class="pizza-footer">
+                            <strong>R$ 48,90</strong>
+                            <button class="add-cart" data-name="Pepperoni" data-price="48.90"
+                                aria-label="Adicionar Pepperoni">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pizza Bacon Supreme -->
+                <article class="pizza-card menu-product" data-category="especiais" data-name="bacon supreme">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">ESPECIAL</span>
+                        <img src="imagens/bacon-supreme.jpg"
+                            alt="Pizza Bacon Supreme" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Bacon Supreme</h3>
+                            <span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Muçarela, bacon crocante, cebola roxa e orégano.</p>
+                        <div class="pizza-footer">
+                            <strong>R$ 51,90</strong>
+                            <button class="add-cart" data-name="Bacon Supreme" data-price="51.90"
+                                aria-label="Adicionar Bacon Supreme">+</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pizza Banana com Canela -->
+                <article class="pizza-card menu-product" data-category="doces" data-name="banana com canela">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">DOCE</span>
+                        <img src="imagens/banana-canela.jpg"
+                            alt="Pizza doce de banana com canela" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Banana com Canela</h3>
+                            <span class="rating">★ 4.7</span>
+                        </div>
+                        <p>Banana, leite condensado, canela e açúcar.</p>
+                        <div class="pizza-footer">
+                            <strong>R$ 39,90</strong>
+                            <button class="add-cart" data-name="Banana com Canela" data-price="39.90"
+                                aria-label="Adicionar Banana com Canela">+</button>
+                        </div>
+                    </div>
+                </article>
+
+
+                <!-- Bacon com Cheddar -->
+                <article class="pizza-card menu-product" data-category="especiais" data-name="bacon com cheddar">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">ESPECIAL</span>
+                        <img src="imagens/bacon-cheddar.jpg"
+                            alt="Pizza Bacon com Cheddar" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Bacon com Cheddar</h3><span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Muçarela, bacon crocante, cheddar cremoso e orégano.</p>
+                        <div class="pizza-footer"><strong>R$ 52,90</strong><button class="add-cart"
+                                data-name="Bacon com Cheddar" data-price="52.90"
+                                aria-label="Adicionar Bacon com Cheddar">+</button></div>
+                    </div>
+                </article>
+
+                <!-- Carne Seca com Catupiry -->
+                <article class="pizza-card menu-product" data-category="especiais" data-name="carne seca com catupiry">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">ESPECIAL</span>
+                        <img src="imagens/carne-seca.jpg"
+                            alt="Pizza Carne Seca com Catupiry" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Carne Seca com Catupiry</h3><span class="rating">★ 4.8</span>
+                        </div>
+                        <p>Carne-seca desfiada, requeijão cremoso e cebola-roxa.</p>
+                        <div class="pizza-footer"><strong>R$ 54,90</strong><button class="add-cart"
+                                data-name="Carne Seca com Catupiry" data-price="54.90"
+                                aria-label="Adicionar Carne Seca com Catupiry">+</button></div>
+                    </div>
+                </article>
+
+                <!-- Milho com Bacon -->
+                <article class="pizza-card menu-product" data-category="classicas" data-name="milho com bacon">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">CLÁSSICA</span>
+                        <img src="imagens/milho-bacon.jpg"
+                            alt="Pizza Milho com Bacon" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Milho com Bacon</h3><span class="rating">★ 4.7</span>
+                        </div>
+                        <p>Muçarela, milho-verde, bacon crocante e orégano.</p>
+                        <div class="pizza-footer"><strong>R$ 46,90</strong><button class="add-cart"
+                                data-name="Milho com Bacon" data-price="46.90"
+                                aria-label="Adicionar Milho com Bacon">+</button></div>
+                    </div>
+                </article>
+
+                <!-- Brócolis com Alho -->
+                <article class="pizza-card menu-product" data-category="vegetarianas" data-name="brocolis com alho">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">VEGETARIANA</span>
+                        <img src="imagens/brocolis-alho.jpg"
+                            alt="Pizza Brócolis com Alho" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Brócolis com Alho</h3><span class="rating">★ 4.7</span>
+                        </div>
+                        <p>Brócolis, muçarela, alho dourado e azeite.</p>
+                        <div class="pizza-footer"><strong>R$ 45,90</strong><button class="add-cart"
+                                data-name="Brócolis com Alho" data-price="45.90"
+                                aria-label="Adicionar Brócolis com Alho">+</button></div>
+                    </div>
+                </article>
+
+                <!-- Chocolate com Confetes -->
+                <article class="pizza-card menu-product" data-category="doces" data-name="chocolate com confetes">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">DOCE</span>
+                        <img src="imagens/chocolate-confetes.jpg"
+                            alt="Pizza Chocolate com Confetes" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Chocolate com Confetes</h3><span class="rating">★ 4.8</span>
+                        </div>
+                        <p>Chocolate cremoso e confeitos coloridos.</p>
+                        <div class="pizza-footer"><strong>R$ 44,90</strong><button class="add-cart"
+                                data-name="Chocolate com Confetes" data-price="44.90"
+                                aria-label="Adicionar Chocolate com Confetes">+</button></div>
+                    </div>
+                </article>
+
+                <!-- Romeu e Julieta -->
+                <article class="pizza-card menu-product" data-category="doces" data-name="romeu e julieta">
+                    <div class="pizza-image">
+                        <span class="pizza-tag">DOCE</span>
+                        <img src="imagens/romeu-julieta.jpg"
+                            alt="Pizza Romeu e Julieta" loading="lazy">
+                    </div>
+                    <div class="pizza-info">
+                        <div class="pizza-title">
+                            <h3>Romeu e Julieta</h3><span class="rating">★ 4.9</span>
+                        </div>
+                        <p>Muçarela e goiabada derretida, uma combinação clássica.</p>
+                        <div class="pizza-footer"><strong>R$ 42,90</strong><button class="add-cart"
+                                data-name="Romeu e Julieta" data-price="42.90"
+                                aria-label="Adicionar Romeu e Julieta">+</button></div>
+                    </div>
+                </article>
+
+
+
+            </div>
+
+            <p class="menu-empty" id="menuEmpty" hidden>Nenhuma pizza encontrada. Tente outra busca ou categoria.</p>
+            <p class="menu-disclaimer">Cardápio e preços ilustrativos. Este projeto ainda não recebe pedidos reais.</p>
+        </section>
+
+        <section class="cta-section">
+            <span class="eyebrow">VAMOS CELEBRAR?</span>
+            <h2>Sua próxima festa começa aqui.</h2>
+            <p>Também organizamos eventos para tornar seus momentos especiais.</p>
+            <div class="hero-buttons">
+                <a href="eventos.html" class="btn btn-primary">Conhecer eventos <span>→</span></a>
+                <a href="index.html" class="btn btn-outline">Voltar ao início <span>↗</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">🍕</span>
+            <span>BELLA <strong>FESTA</strong><small>PIZZARIA & EVENTOS</small></span>
+        </a>
+        <p>Feito para compartilhar bons momentos.</p>
+        <span class="copyright">© <span id="currentYear"></span> Bella Festa. Projeto demonstrativo.</span>
+    </footer>
+
+    <div class="cart-bar" aria-live="polite">
+        <div><span>Carrinho demonstrativo</span><br><strong id="cartSummary">0 itens · R$ 0,00</strong></div>
+        <button type="button" id="checkoutButton">Ver pedido</button>
+    </div>
+
+    <script>
+        (() => {
+            const cards = [...document.querySelectorAll(".menu-product")];
+            const search = document.getElementById("pizzaSearch");
+            const filters = [...document.querySelectorAll(".menu-filter")];
+            const empty = document.getElementById("menuEmpty");
+            const summary = document.getElementById("cartSummary");
+            let category = "todas";
+            let cart = [];
+
+            function filterCards() {
+                const term = search.value.trim().toLocaleLowerCase("pt-BR");
+                let visible = 0;
+
+                cards.forEach(card => {
+                    const matchesCategory = category === "todas" || card.dataset.category === category;
+                    const matchesSearch = card.dataset.name.includes(term);
+                    card.hidden = !(matchesCategory && matchesSearch);
+                    if (!card.hidden) visible++;
+                });
+
+                empty.hidden = visible !== 0;
+            }
+
+            filters.forEach(button => {
+                button.addEventListener("click", () => {
+                    category = button.dataset.category;
+                    filters.forEach(item => {
+                        const active = item === button;
+                        item.classList.toggle("active", active);
+                        item.setAttribute("aria-pressed", String(active));
+                    });
+                    filterCards();
+                });
+            });
+
+            search.addEventListener("input", filterCards);
+
+            document.querySelectorAll(".add-cart").forEach(button => {
+                button.addEventListener("click", () => {
+                    cart.push({
+                        name: button.dataset.name,
+                        price: Number(button.dataset.price)
+                    });
+                    const total = cart.reduce((sum, item) => sum + item.price, 0);
+                    summary.textContent = `${cart.length} ${cart.length === 1 ? "item" : "itens"} · ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
+                });
+            });
+
+            document.getElementById("checkoutButton").addEventListener("click", () => {
+                if (!cart.length) {
+                    alert("Seu carrinho está vazio. Adicione uma pizza para começar!");
+                    return;
+                }
+
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                const items = cart.map(item => `• ${item.name} — ${item.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`).join("\n");
+
+                alert(`SEU PEDIDO DEMONSTRATIVO\n\n${items}\n\nTotal: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}\n\nNenhum pedido real foi enviado.`);
+            });
+
+            const year = document.getElementById("currentYear");
+            if (year) year.textContent = new Date().getFullYear();
+        })();
+    </script>
+
+</body>
+
+</html>
