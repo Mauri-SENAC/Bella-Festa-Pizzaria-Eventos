@@ -1,16 +1,15 @@
+
 name: pipeline
 
 on:
-  push
-
+  push:
 
 jobs:
   teste:
     runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v4
 
-  steps:
-    - name: Clone
-      uses: actions/checkout@v4
-
-    - name: Exibir mensagem
-      run: echo "Olá, GitHub Actions!"
+      - name: Exibir mensagem
+        run: echo "Olá, GitHub Actions!"
