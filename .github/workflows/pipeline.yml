@@ -2,14 +2,114 @@
 name: pipeline
 
 on:
+  pull_request:
+    branches: [main]
   push:
+    branches: [main]
+  schedule:
+    - cron: "23 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  teste:
+  security:
+    name: Security checks
     runs-on: ubuntu-latest
-    steps:
-      - name: Clone
-        uses: actions/checkout@v4
+    permissions:
+      contents: read
+      security-events: write
 
-      - name: Exibir mensagem
-        run: echo "Olá, GitHub Actions!"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check for committed secrets
+        shell: bash
+        run: |
+          if grep -RInE \
+            --exclude-dir=.git \
+            --exclude-dir=node_modules \
+            --exclude-dir=.github \
+            --exclude='security.yml' \
+            '(-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16})' \
+            .; then
+            echo "::error::Possible secret detected. Review the matches."
+            exit 1
+          fi
+
+      - name: Check HTML and JavaScript patterns
+        shell: bash
+        run: |
+          if grep -nE \
+            'eval[[:space:]]*\(|document\.write[[:space:]]*\(|innerHTML[[:space:]]*=' \
+            --include='*.js' --include='*.html' .; then
+            echo "::warning::Review these potentially dangerous DOM patterns."
+          fi
+
+      - name: Audit dependencies if npm is used
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+            npm audit --audit-level=high
+          else
+            echo "No package-lock.json; npm audit skipped."
+          fi
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+
+      - name: Analyze JavaScript
+        uses: github/codeql-action/analyze@v3
+
+  deploy:
+    name: Deploy to Vercel
+    needs: security
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@41.7.2
+
+      - name: Pull production configuration
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build production output
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy production
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
